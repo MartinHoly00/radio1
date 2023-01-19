@@ -1,14 +1,18 @@
 radio.setTransmitPower(4);
+
 radio.setFrequencyBand(7);
+
 radio.setTransmitSerialNumber(true);
 
-radio.setGroup(1)
+radio.setGroup(2)
 
- let mySerial = (control.deviceSerialNumber())
 
-console.logValue("serial", mySerial + "\n\r" ) 
+
+
 
 let actualCode = 7;
+
+
 
 input.onButtonPressed(Button.B, () => {
 
@@ -18,33 +22,115 @@ input.onButtonPressed(Button.B, () => {
 
 })
 
+
+
 radio.onReceivedNumber((receivedNumber: number) => {
-})
-radio.onReceivedValue(function (name: string, value: number) {
+
+
+
 })
 
-radio.onReceivedNumber(function (receivedNumber: number) {
+
+
+
+radio.onReceivedValue(function (name: string, value: number) {
+
+
+
+})
+
+
+
+/* radio.onReceivedNumber(function(receivedNumber: number) {
 
     const remotSerial = radio.receivedPacket(RadioPacketProperty.SerialNumber)
 
-    console.logValue("BeaconId", receivedNumber + "\n\r" + remotSerial)
-})
+    console.logValue("BeaconId",receivedNumber + "\n\r" + remotSerial + "\n\r")
+
+    
+
+}) */
+
+
 
 input.onButtonPressed(Button.A, function () {
 
     radio.sendNumber(7)
-    
-    basic.showNumber(1)
-    basic.pause(100)
+
+
+
+    basic.showLeds(`
+
+    . . . . .
+
+    . . . . .
+
+    . . # . .
+
+    . . . . .
+
+    . . . . .
+
+    `)
+
     basic.clearScreen()
 
 })
 
+
+
+let mySerial = (control.deviceSerialNumber())
+
+/* console.logValue("serial", mySerial + "\n\r") */
+
+
+
 radio.onReceivedValue(function (key: string, value: number) {
-    if (mySerial === parseInt(key)){
+
+    if (mySerial === parseInt(key)) {
+
         console.logValue("nextCode", value)
+
     }
-    if(key === "grp:"){
-        console.logValue("newGrp",value)
+
+    if (key === "grp:") {
+
+        console.logValue("nextGrp", value)
+
     }
+
+})
+
+
+
+input.onButtonPressed(Button.B, function () {
+
+
+
+    radio.sendString("Mnau")
+
+    basic.showLeds(`
+
+    . . . . .
+
+    . # . # .
+
+    . . # . .
+
+    . # . # .
+
+    . . . . .
+
+    `)
+
+    basic.clearScreen()
+
+})
+
+
+
+radio.onReceivedString(function (receivedString: string) {
+
+    console.logValue("string", receivedString + "\n\r")
+
 })
