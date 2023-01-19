@@ -33,6 +33,7 @@ radio.onReceivedNumber(function (receivedNumber: number) {
 input.onButtonPressed(Button.A, function () {
 
     radio.sendNumber(7)
+    
     basic.showNumber(1)
     basic.pause(100)
     basic.clearScreen()
@@ -43,7 +44,7 @@ radio.onReceivedValue(function (key: string, value: number) {
     if (mySerial === parseInt(key)){
         console.logValue("nextCode", value)
     }
-    if(key === "grp"){
+    if(key === "grp:"){
         console.logValue("newGrp",value)
     }
 })
